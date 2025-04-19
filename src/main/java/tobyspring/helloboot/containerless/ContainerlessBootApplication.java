@@ -3,22 +3,15 @@ package tobyspring.helloboot.containerless;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.server.WebServer;
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
-import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
-@Configuration //구성 정보를 가지고 있는 클래스이다.
+@Configuration
+@ComponentScan
+//@Component 를 인식해서 빈으로 등록함 (메타 어노테이션도 포함)
 public class ContainerlessBootApplication {
-    @Bean
-    public HelloController helloController (HelloService helloService) {
-        return new HelloController(helloService);
-    }
-
-    @Bean
-    public HelloService helloService () {
-        return new SimpleHelloService();
-    }
 
     public static void main(String[] args) {
 
@@ -36,7 +29,6 @@ public class ContainerlessBootApplication {
                 webServer.start();
             }
         };
-
         applicationContext.register(ContainerlessBootApplication.class); //파라미터의 클래스에서 @Bean 메소드들을 읽고 빈 정의로 등록하라
 
         applicationContext.refresh();
