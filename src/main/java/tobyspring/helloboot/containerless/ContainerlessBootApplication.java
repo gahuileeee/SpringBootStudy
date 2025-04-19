@@ -1,26 +1,18 @@
 package tobyspring.helloboot;
 
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.server.WebServer;
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
-import org.springframework.context.support.GenericApplicationContext;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
+import org.springframework.web.context.support.GenericWebApplicationContext;
+import org.springframework.web.servlet.DispatcherServlet;
 import tobyspring.helloboot.containerless.HelloController;
 import tobyspring.helloboot.containerless.SimpleHelloService;
-
-import java.io.IOException;
 
 public class ContainerlessBootApplication {
 
     public static void main(String[] args) {
-
         //Spring Container 를 만들것임
-        GenericApplicationContext applicationContext = new GenericApplicationContext();
+        GenericWebApplicationContext applicationContext = new GenericWebApplicationContext();
         applicationContext.registerBean(HelloController.class);
         applicationContext.registerBean(SimpleHelloService.class); //인터페이스가 아닌 정확한 클래스를 빈으로 등록해야 함.
 
@@ -35,31 +27,10 @@ public class ContainerlessBootApplication {
 
         ServletWebServerFactory serverFactory = new TomcatServletWebServerFactory();
 
-        WebServer webServer = serverFactory.getWebServer(servletContext -> servletContext.addServlet("hello", new HttpServlet() {
-            @Override
-            protected void service(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-                // 인증, 보안, 다국어, 공통 기능
+        WebServer webServer = serverFactory.getWebServer(servletContext ->
+                servletContext.addServlet("dispatcherServlet", new DispatcherServlet(applicationContext) {
+                }).addMapping("/*"));
 
-                //아래는 매핑 역할
-                if (req.getRequestURI().equals("/hello") && req.getMethod().equals(HttpMethod.GET.name())){
-                    String name = req.getParameter("name");
-                    //Spring Container 에서 컨트롤러를 꺼냄
-                    HelloController helloController = applicationContext.getBean(HelloController.class);
-                    String ret = helloController.hello(name);
-
-//                    resp.setStatus(HttpStatus.OK.value()); 기본적으로 200번 상태로 셋팅해서 리턴해줌
-                    resp.setContentType(MediaType.TEXT_PLAIN_VALUE);
-                    resp.getWriter().println(ret);
-                }
-                else if (req.getRequestURI().equals("/user")){
-                    //
-                }else{
-                    //아무 것도 매핑되지 못한다면 404 error 를 return
-                    resp.setStatus(HttpStatus.NOT_FOUND.value());
-                }
-            }
-        }).addMapping("/*"));
-
-        webServer.start();
+        webServer.start(); //Tomcat Servlet Container 가 동작하게 됨.
     }
 }

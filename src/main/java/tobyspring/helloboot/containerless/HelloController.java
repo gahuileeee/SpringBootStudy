@@ -1,8 +1,13 @@
 package tobyspring.helloboot.containerless;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import java.util.Objects;
 
 //@RestController
+@Controller //SpringBoot 3 이상부터는 클래스에 @Controller 를 명시해 두어야함.
 public class HelloController {
     private final HelloService helloService;
 
@@ -10,10 +15,9 @@ public class HelloController {
         this.helloService = helloService;
     }
 
-//    @GetMapping("/hello")
+    @GetMapping("/hello")
+    @ResponseBody
     public String hello(String name) {
-//        SimpleHelloService helloService = new SimpleHelloService();
-        // 컨트롤러의 역할 중 하나 : 요청을 검증하는 것
         return helloService.sayHello(Objects.requireNonNull(name));
     }
 }
