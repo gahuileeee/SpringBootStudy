@@ -3,24 +3,11 @@ package tobyspring.helloboot.containerless;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.DispatcherServlet;
 
-@Configuration
-@ComponentScan
+@MySpringBootAnnotation
 public class ContainerlessBootApplication {
-    @Bean
-    public ServletWebServerFactory servletWebServerFactory(){
-        return new TomcatServletWebServerFactory();
-    }
-
-    @Bean
-    public DispatcherServlet dispatcherServlet(){
-        return new DispatcherServlet();
-    }
-
     public static void main(String[] args) {
-        MySpringApplication.run(ContainerlessBootApplication.class, args); //SpringBootApplication.run 과 유사하게 동작
+        MySpringApplication.run(ContainerlessBootApplication.class, args); //SpringApplication.run 과 유사하게 동작
     }
 }
