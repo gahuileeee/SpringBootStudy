@@ -1,5 +1,8 @@
 package tobyspring.helloboot.config.autoconfig;
 
+import tobyspring.helloboot.config.MyConfigurationProperties;
+
+@MyConfigurationProperties
 public class ServerProperties {
     private String contextPath;
 
