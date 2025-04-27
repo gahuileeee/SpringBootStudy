@@ -8,7 +8,6 @@ import tobyspring.helloboot.config.MyAutoConfiguration;
 public class PropertyPlaceholderConfig {
     @Bean
     PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer(){
-        System.out.println("??");
         return new PropertySourcesPlaceholderConfigurer();
     }
 }
