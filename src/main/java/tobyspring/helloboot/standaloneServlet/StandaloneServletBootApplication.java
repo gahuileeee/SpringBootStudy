@@ -10,8 +10,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import tobyspring.helloboot.containerless.HelloController;
-import tobyspring.helloboot.containerless.SimpleHelloService;
 
 import java.io.IOException;
 
