@@ -1,8 +1,7 @@
-package tobyspring.helloboot;
+package tobyspring.helloboot.containerless;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import tobyspring.helloboot.containerless.HelloController;
 
 public class HelloControllerTest {
     @Test
@@ -21,10 +20,10 @@ public class HelloControllerTest {
 
         Assertions.assertThatThrownBy(()->{
             helloController.hello(null);
-        }).isInstanceOf(IllegalAccessError.class);
+        }).isInstanceOf(IllegalArgumentException.class);
 
         Assertions.assertThatThrownBy(()->{
             helloController.hello("");
-        }).isInstanceOf(IllegalAccessError.class);
+        }).isInstanceOf(IllegalArgumentException.class);
     }
 }

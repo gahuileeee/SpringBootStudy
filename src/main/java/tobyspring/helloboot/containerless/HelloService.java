@@ -2,5 +2,7 @@ package tobyspring.helloboot.containerless;
 
 public interface HelloService {
     String sayHello(String name);
-    int countOf(String name);
+    default int countOf(String name){
+        return 0;
+    };
 }

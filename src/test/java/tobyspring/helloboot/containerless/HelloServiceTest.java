@@ -1,10 +1,7 @@
-package tobyspring.helloboot;
+package tobyspring.helloboot.containerless;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import tobyspring.helloboot.containerless.Hello;
-import tobyspring.helloboot.containerless.HelloRepository;
-import tobyspring.helloboot.containerless.SimpleHelloService;
 
 public class HelloServiceTest {
     @Test

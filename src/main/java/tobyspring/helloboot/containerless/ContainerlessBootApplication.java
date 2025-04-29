@@ -2,10 +2,11 @@ package tobyspring.helloboot.containerless;
 
 import jakarta.annotation.PostConstruct;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.jdbc.core.JdbcTemplate;
-import tobyspring.helloboot.config.MySpringBootApplication;
 
-@MySpringBootApplication
+//@MySpringBootApplication
+@SpringBootApplication
 public class ContainerlessBootApplication {
     private final JdbcTemplate jdbcTemplate;
 
